@@ -18,7 +18,7 @@ If there's any improvements or features you would like to suggest contact me! :)
 </li>
   <li>GUI just basic, i know it looks ugly! will get better :)</li>
 </ul>
-![image](https://github.com/Dessmondd/medaltvwatermark/assets/97458634/03cd2c46-78c7-43b5-a07c-399123ebea61)
+
 
 
 <h1>(Future update, UNDER DEVELOPMENT sorry!)</h1>
@@ -31,5 +31,6 @@ If there's any improvements or features you would like to suggest contact me! :)
   <li>Progress bar now shows up inside the app and does not open a background terminal, same with important information!</li>
 </ul>
 
+![newGUI](https://github.com/Dessmondd/medaltvwatermark/assets/97458634/70c26fb9-7765-425f-a15c-38bec7efa287)
 
 
