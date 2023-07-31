@@ -1,4 +1,4 @@
-![image](https://github.com/Dessmondd/medaltvwatermark/assets/97458634/03cd2c46-78c7-43b5-a07c-399123ebea61)# medaltvwatermark
+# medaltvwatermark
 Download videos from Medal.TV without watermark.
 
 This code is made for the purpose of being able to download videos without the watermark.
@@ -18,7 +18,7 @@ If there's any improvements or features you would like to suggest contact me! :)
 </li>
   <li>GUI just basic, i know it looks ugly! will get better :)</li>
 </ul>
-![image](https://github.com/Dessmondd/medaltvwatermark/assets/97458634/532240f4-2324-47e7-8f1b-a6890b7eed38)
+![image](https://github.com/Dessmondd/medaltvwatermark/assets/97458634/03cd2c46-78c7-43b5-a07c-399123ebea61)
 
 
 <h1>(Future update, UNDER DEVELOPMENT sorry!)</h1>
@@ -30,6 +30,6 @@ If there's any improvements or features you would like to suggest contact me! :)
   <li>Performance upgrades</li>
   <li>Progress bar now shows up inside the app and does not open a background terminal, same with important information!</li>
 </ul>
-![image](https://github.com/Dessmondd/medaltvwatermark/assets/97458634/20e1ed35-e905-4a35-9b94-f6256d9076eb)
+
 
 
