@@ -8,3 +8,15 @@ If it freezes, most likely is because is fetching/downloading the video, so do n
 
 If there's any improvements or features you would like to suggest contact me! :)
 
+0.9.9:
+
+<h1>Initial release!</h1>
+<ul>
+<li>
+  Functionality working! (Performance for large videos coming later on)
+  
+</li>
+  <li>GUI just basic, i know it looks ugly! will get better :)</li>
+</ul>
+
+
