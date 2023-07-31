@@ -21,7 +21,7 @@ If there's any improvements or features you would like to suggest contact me! :)
 
 
 
-<h1>(Future update, UNDER DEVELOPMENT sorry!)</h1>
+<h1>(Future update, UNDER DEVELOPMENT sorry!)v1.0.0</h1>
 <ul>
   <li>
   New Modern/Minimalistic GUI  
