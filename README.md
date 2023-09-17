@@ -1,4 +1,4 @@
-# medaltvwatermark
+# MedalTV Video Downloader (Without watermarks <3)
 Download videos from Medal.TV without watermark.
 
 This code is made for the purpose of being able to download videos without the watermark.
