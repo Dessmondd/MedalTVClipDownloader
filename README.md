@@ -20,8 +20,6 @@ If there's any improvements or features you would like to suggest contact me! :)
 </ul>
 
 
-
-<h1><s>Future update, UNDER DEVELOPMENT sorry!)v1.0.0</s></h1>
 <h1>v1.0.0 Release</h1>
 <ul>
   <li>
