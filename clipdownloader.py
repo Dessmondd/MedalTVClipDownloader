@@ -8,10 +8,10 @@ from tkinter.messagebox import showinfo
 from tkinter.messagebox import showerror
 from packaging.version import parse
 import sys
+import threading
 
 GITHUB_REPO_URL = "URL_REPOSITORY_NOT_YET_FINISHED_SMILEY_FACE"
 CURRENT_VERSION = "1.0.0"  # Just the current version, this will change from time to time, HOPEFULLY LOL
-
 
 class App:
     def __init__(self, root):
@@ -23,10 +23,9 @@ class App:
         self.initUI()
 
     def initUI(self):
-        
         center_frame = tk.Frame(self.root, bg="#302f2f")
         center_frame.pack(expand=True)
-        
+
         self.check_version_button = ctk.CTkButton(self.root, text="Check for Updates", command=self.check_for_updates)
         self.check_version_button.pack(pady=5)
 
@@ -35,11 +34,10 @@ class App:
 
         self.progress_bar = ttk.Progressbar(center_frame, orient="horizontal", length=200, mode="determinate")
         self.progress_bar.grid(row=2, column=0, columnspan=2, pady=10)
-        
-        self.download_button = ctk.CTkButton(center_frame, text="Download Video", command=self.download_video)
+
+        self.download_button = ctk.CTkButton(center_frame, text="Download Video", command=self.start_download_thread)
         self.download_button.grid(row=3, column=0, columnspan=2, pady=5)
 
-        
         self.url_label.grid(row=0, column=0, padx=10, pady=5)
         self.url_input.grid(row=0, column=1, padx=10, pady=5)
         self.root.config(bg="#302f2f")
@@ -47,19 +45,15 @@ class App:
         self.exit_button = ctk.CTkButton(center_frame, text="Exit", command=self.exit_app)
         self.exit_button.grid(row=4, column=0, columnspan=3, pady=10)
 
-
         self.root.protocol("WM_DELETE_WINDOW", self.exit_app)
-        self.url_label.grid(row=0, column=0, padx=5, pady=5)
-        self.url_input.grid(row=0, column=1, padx=5, pady=5)
-        self.root.config(bg="#302f2f")
 
+    def start_download_thread(self):
+        threading.Thread(target=self.download_video).start()
 
     def check_for_updates(self):
         try:
             response = requests.get(GITHUB_REPO_URL + "/releases/latest")
             response_json = response.json()
-            print(response.status_code)
-            print(response.text)
             response.raise_for_status() 
             latest_version = response_json.get("tag_name")
 
@@ -96,7 +90,7 @@ class App:
 
             if file_url:
                 filename = filedialog.asksaveasfilename(
-                    initialfile=os.path.basename(file_url),
+                    initialfile=os.path.basename("heythisisyourvideohehe"),
                     filetypes=[("Video Files", "*.mp4")],
                     defaultextension=".mp4"
                 )
@@ -125,13 +119,12 @@ class App:
                 print(f'\nFile {filename} saved')
                 self.progress_bar.grid_remove()
 
-               
                 showinfo("Success", f"File {filename} saved")
             else:
                 print('Error: Most likely, direct link download does not exist')
         except:
             print('Error: Clip information is not being fetched properly, probably we are fetching different information..')
-    
+
     def exit_app(self):
         self.root.destroy()
         sys.exit()
