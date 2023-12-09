@@ -10,8 +10,9 @@ from packaging.version import parse
 import sys
 import threading
 
-GITHUB_REPO_URL = "URL_REPOSITORY_NOT_YET_FINISHED_SMILEY_FACE"
-CURRENT_VERSION = "1.0.0"  # Just the current version, this will change from time to time, HOPEFULLY LOL
+GITHUB_REPO_URL = "https://api.github.com/repos/Dessmondd/MedalTVClipDownloader/releases/latest"
+CURRENT_VERSION = "1.1"  # Just the current version, this will change from time to time, HOPEFULLY LOL
+
 
 class App:
     def __init__(self, root):
@@ -19,7 +20,6 @@ class App:
         self.root.title("Clip Downloader :)")
         self.root.geometry("400x200")
         self.root.resizable(False, False)
-
         self.initUI()
 
     def initUI(self):
@@ -52,25 +52,30 @@ class App:
 
     def check_for_updates(self):
         try:
-            response = requests.get(GITHUB_REPO_URL + "/releases/latest")
-            response_json = response.json()
-            response.raise_for_status() 
-            latest_version = response_json.get("tag_name")
+            response = requests.get(GITHUB_REPO_URL)
+            response.raise_for_status()
+            releases = response.json()
+        
+            if isinstance(releases, list) and len(releases) > 0:
+                latest_release = releases[0]
+                latest_version = latest_release.get("tag_name")
 
-            if latest_version:
-                if parse(latest_version) > parse(CURRENT_VERSION):
-                    message = f"A new version ({latest_version}) is available!\nVisit {GITHUB_REPO_URL} for the update."
-                    showinfo("Update Available", message)
+                if latest_version:
+                    if parse(latest_version) > parse(CURRENT_VERSION):
+                        message = f"A new version ({latest_version}) is available!\nVisit {GITHUB_REPO_URL} for the update."
+                        showinfo("Update Available", message)
+                    else:
+                        showinfo("No Updates", "You are using the latest version of the app.")
                 else:
-                    showinfo("No Updates", "You are using the latest version of the app.")
+                    showerror("Error", "Failed to retrieve version information from the GitHub response.")
             else:
-                showerror("Error", "Failed to retrieve version information from the GitHub response.")
-        except requests.exceptions.RequestException:
-            showerror("Error", "Failed to check for updates. Please try again later.")
+                showerror("Error", "No releases found for the repository.")
+        except requests.exceptions.RequestException as e:
+            showerror("Error", f"Failed to check for updates: {e}")
+
 
     def download_video(self):
         url = self.url_input.get().strip()
-
         if not url:
             print('Invalid URL')
             return
@@ -98,32 +103,34 @@ class App:
                 if not filename:
                     return
 
-                self.progress_bar["value"] = 0
-                self.progress_bar.grid()
+                with requests.get(file_url, stream=True) as response:
+                    response.raise_for_status()
+                    total_length = int(response.headers.get('content-length'))
+                    bytes_written = 0
 
-                with open(filename, 'wb') as f:
-                    res = requests.get(file_url, stream=True)
-                    total_length = res.headers.get('content-length')
-                    if total_length is None: 
-                        f.write(res.content)
-                    else:
-                        dl = 0
-                        total_length = int(total_length)
-                        for data in res.iter_content(chunk_size=4096):
-                            dl += len(data)
-                            f.write(data)
-                            done = int(100 * dl / total_length)
-                            self.progress_bar["value"] = done
-                            self.root.update()
+                    with open(filename, 'wb') as f:
+                        for chunk in response.iter_content(chunk_size=1024 * 1024):  # 1 MB chunks
+                            if chunk:
+                                f.write(chunk)
+                                bytes_written += len(chunk)
+                                self.update_progress_bar(bytes_written, total_length)
 
                 print(f'\nFile {filename} saved')
-                self.progress_bar.grid_remove()
-
                 showinfo("Success", f"File {filename} saved")
             else:
                 print('Error: Most likely, direct link download does not exist')
-        except:
-            print('Error: Clip information is not being fetched properly, probably we are fetching different information..')
+        except requests.RequestException as e:
+            print(f'Error: {e}')
+            showerror("Error", f"Error: {e}")
+
+
+    def update_progress_bar(self, bytes_written, total_bytes):
+        if total_bytes is None:
+            return
+
+        done = int(100 * bytes_written / total_bytes)
+        self.progress_bar["value"] = done
+        self.root.update()
 
     def exit_app(self):
         self.root.destroy()
