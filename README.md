@@ -11,6 +11,7 @@ Go to https://github.com/Dessmondd/MedalTVClipDownloader/releases/tag/2.0 and do
 ![image](https://github.com/Dessmondd/MedalTVClipDownloader/assets/97458634/362d650f-d1f1-4075-8d3a-82c9bcd3a5bb)
 Once you have done that just copy the URL of your Medal.TV video that you uploaded (does not matter if video is public or hidden, as long as you got the URL it will work!)
 Paste the URL in the label "Enter the URL of the Clip" and click on "Download video" add a name to the new file and wait until its downloaded c:
+
 ![image](https://github.com/Dessmondd/MedalTVClipDownloader/assets/97458634/d019dbf6-2733-4e42-9577-a1657861161a)
 
 
