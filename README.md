@@ -25,6 +25,5 @@ Paste the URL in the label "Enter the URL of the Clip" and click on "Download vi
   <li>Progress bar now shows up inside the app and does not open a background terminal, same with important information!</li>
 </ul>
 
-![newGUI](https://github.com/Dessmondd/medaltvwatermark/assets/97458634/70c26fb9-7765-425f-a15c-38bec7efa287)
 
 
