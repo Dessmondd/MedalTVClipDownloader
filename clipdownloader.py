@@ -11,7 +11,7 @@ import sys
 import threading
 
 GITHUB_REPO_URL = "https://api.github.com/repos/Dessmondd/MedalTVClipDownloader/releases/latest"
-CURRENT_VERSION = "1.1"  # Just the current version, this will change from time to time, HOPEFULLY LOL
+CURRENT_VERSION = "2.1"  # Just the current version, this will change from time to time, HOPEFULLY LOL
 
 
 class App:
@@ -54,24 +54,20 @@ class App:
         try:
             response = requests.get(GITHUB_REPO_URL)
             response.raise_for_status()
-            releases = response.json()
-        
-            if isinstance(releases, list) and len(releases) > 0:
-                latest_release = releases[0]
-                latest_version = latest_release.get("tag_name")
+            latest_release = response.json()
+            latest_version = latest_release.get("tag_name")
 
-                if latest_version:
-                    if parse(latest_version) > parse(CURRENT_VERSION):
-                        message = f"A new version ({latest_version}) is available!\nVisit {GITHUB_REPO_URL} for the update."
-                        showinfo("Update Available", message)
-                    else:
-                        showinfo("No Updates", "You are using the latest version of the app.")
+            if latest_version:
+                if parse(latest_version) > parse(CURRENT_VERSION):
+                    message = f"A new version ({latest_version}) is available!\nVisit {latest_release['html_url']} for the update."
+                    showinfo("Update Available", message)
                 else:
-                    showerror("Error", "Failed to retrieve version information from the GitHub response.")
+                    showinfo("No Updates", "You are using the latest version of the app.")
             else:
-                showerror("Error", "No releases found for the repository.")
+                showerror("Error", "Failed to retrieve version information from the GitHub response.")
         except requests.exceptions.RequestException as e:
             showerror("Error", f"Failed to check for updates: {e}")
+
 
 
     def download_video(self):
